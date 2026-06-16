@@ -1,0 +1,33 @@
+# Render deployment configuration
+# docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: dutchguide-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    plan: starter
+    disk:
+      name: vectorstore
+      mountPath: /var/data
+      sizeGB: 5
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false   # Set this manually in the Render dashboard
+      - key: OPENAI_MODEL
+        value: gpt-4.1
+      - key: EMBEDDING_MODEL
+        value: intfloat/multilingual-e5-large
+      - key: CHROMA_PERSIST_DIR
+        value: /var/data/vectorstore
+      - key: DATA_DIR
+        value: /var/data/data
+      - key: ALLOWED_ORIGINS
+        value: https://dutchguide-ai.vercel.app
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "20"
+      - key: DEBUG
+        value: "false"
