@@ -123,14 +123,19 @@ export default function ChatMessage({
         {!isLoading && !isUser && message.sources && message.sources.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {message.sources.map((source, i) => (
-              <span
+              <a
                 key={i}
-                title={source.content_preview}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-xs text-gray-600 dark:text-gray-400 hover:border-dutch-red/50 transition-colors cursor-default"
+                href={source.source_path.startsWith('http')
+                  ? source.source_path
+                  : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/${source.source_path}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Click to view source document\n\nPreview: ${source.content_preview}`}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-xs text-gray-600 dark:text-gray-400 hover:border-dutch-red/50 hover:text-dutch-red dark:hover:text-dutch-red-light transition-colors cursor-pointer"
               >
                 <span>{CATEGORY_ICONS[source.category] || '📌'}</span>
                 <span>[{i + 1}] {source.title}</span>
-              </span>
+              </a>
             ))}
           </div>
         )}

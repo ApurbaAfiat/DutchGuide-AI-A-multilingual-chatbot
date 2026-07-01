@@ -44,7 +44,12 @@ export default function ChatWindow() {
 
   // Auto-scroll to latest message
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: 'smooth'
+      })
+    }
   }, [messages])
 
   const lastMessage = messages[messages.length - 1]

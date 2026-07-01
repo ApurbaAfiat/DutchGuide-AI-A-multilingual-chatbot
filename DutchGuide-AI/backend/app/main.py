@@ -75,6 +75,10 @@ def create_app() -> FastAPI:
     app.include_router(upload.router, prefix="/api", tags=["Upload"])
     app.include_router(admin.router, prefix="/api", tags=["Admin"])
 
+    # Static files for documents
+    from fastapi.staticfiles import StaticFiles
+    app.mount("/api/documents", StaticFiles(directory=settings.data_dir), name="documents")
+
     return app
 
 

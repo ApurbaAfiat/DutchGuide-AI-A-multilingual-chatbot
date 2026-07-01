@@ -55,6 +55,7 @@ class Source(BaseModel):
     content_preview: str = Field(..., description="First 200 chars of the chunk")
     category: str
     relevance_score: float = Field(..., ge=0.0, le=1.0)
+    source_path: str = Field(..., description="Relative path of the source document")
 
 
 class ChatResponse(BaseModel):

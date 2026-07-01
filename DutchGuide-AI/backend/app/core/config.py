@@ -12,11 +12,18 @@ from functools import lru_cache
 
 
 class Settings(BaseSettings):
-    # OpenAI
-    openai_api_key: str = Field(..., env="OPENAI_API_KEY")
+    # LLM Provider: "gemini" or "openai"
+    llm_provider: str = Field("gemini", env="LLM_PROVIDER")
+
+    # OpenAI (used when LLM_PROVIDER=openai)
+    openai_api_key: str = Field("", env="OPENAI_API_KEY")
     openai_model: str = Field("gpt-4.1", env="OPENAI_MODEL")
     openai_max_tokens: int = Field(1500, env="OPENAI_MAX_TOKENS")
     openai_temperature: float = Field(0.3, env="OPENAI_TEMPERATURE")
+
+    # Google Gemini (used when LLM_PROVIDER=gemini)
+    gemini_api_key: str = Field("", env="GEMINI_API_KEY")
+    gemini_model: str = Field("gemini-2.5-flash", env="GEMINI_MODEL")
 
     # Embeddings
     embedding_model: str = Field("intfloat/multilingual-e5-large", env="EMBEDDING_MODEL")

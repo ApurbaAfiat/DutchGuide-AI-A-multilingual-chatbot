@@ -19,6 +19,7 @@ export interface Source {
   content_preview: string
   category: string
   relevance_score: number
+  source_path: string
 }
 
 export interface ChatRequest {
