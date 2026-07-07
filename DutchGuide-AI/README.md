@@ -17,7 +17,7 @@ A production-ready multilingual RAG (Retrieval-Augmented Generation) chatbot tha
 |---|---|
 | 🌍 **Multilingual** | Auto-detects and responds in English, Dutch, Bengali, Hindi |
 | 📚 **RAG Pipeline** | multilingual-e5-large embeddings + ChromaDB vector store |
-| 🤖 **GPT-4.1** | OpenAI LLM for natural, grounded answers |
+| 🤖 **Gemini / GPT-4.1** | Google Gemini or OpenAI GPT LLM for natural, grounded answers |
 | 📎 **Citations** | Every answer cites knowledge base sources |
 | 💬 **Conversation Memory** | Retains last 10 turns per session |
 | 🎤 **Voice Input** | Browser-based speech recognition |
@@ -42,7 +42,7 @@ Context Re-ranking
         ↓
 System Prompt Construction (language-specific)
         ↓
-OpenAI GPT-4.1 Generation
+Gemini / OpenAI GPT-4.1 Generation
         ↓
 Structured Response (answer + sources + suggestions)
 ```

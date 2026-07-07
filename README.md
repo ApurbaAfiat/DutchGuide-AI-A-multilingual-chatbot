@@ -13,7 +13,7 @@ The workspace is organized as follows:
     - Langdetect for automatic language detection (supporting English, Dutch, Bengali, and Hindi).
     - Sentence Transformers (`multilingual-e5-large`) for generating multilingual text embeddings.
     - ChromaDB vector store for retrieval-augmented generation (RAG) storage.
-    - OpenAI GPT integration for contextual response generation.
+    - Google Gemini / OpenAI GPT integration for contextual response generation.
     - Document ingestion pipelines and administrative endpoints.
   - **[`frontend/`](file:///e:/Study/Multilingual%20Rag%20Chatbot/DutchGuide-AI/frontend)**: Next.js frontend application providing a responsive and modern chat UI with support for voice input (speech-to-text) and reading answers aloud (text-to-speech).
   - **[`docs/`](file:///e:/Study/Multilingual%20Rag%20Chatbot/DutchGuide-AI/docs)**: Core architecture, API design, and deployment documentation.
