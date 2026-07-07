@@ -24,7 +24,7 @@ export function useVoice(): UseVoiceReturn {
   const [isListening, setIsListening] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [transcript, setTranscript] = useState('')
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  const recognitionRef = useRef<any>(null)
 
   const isSupported =
     typeof window !== 'undefined' &&
@@ -50,7 +50,7 @@ export function useVoice(): UseVoiceReturn {
       setTranscript('')
     }
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: any) => {
       const current = event.resultIndex
       const result = event.results[current]
       if (result.isFinal) {
