@@ -38,9 +38,21 @@ async def lifespan(app: FastAPI):
     # Pre-warm the vector store on startup so first request is fast
     try:
         vs = get_vector_store()
-        logger.info(f"✅ Vector store loaded: {vs._collection.count()} documents indexed")
+        doc_count = vs._collection.count()
+        logger.info(f"✅ Vector store loaded: {doc_count} documents indexed")
+        if doc_count == 0:
+            logger.info("Empty vector store detected. Running automatic ingestion...")
+            from app.services.ingest_service import ingest_all_documents
+            result = ingest_all_documents()
+            logger.info(f"✅ Automatic ingestion complete! Indexed {result.get('total_chunks', 0)} chunks.")
     except Exception as e:
-        logger.warning(f"⚠️  Vector store not ready yet (run ingest.py first): {e}")
+        logger.warning(f"⚠️  Vector store not ready yet, attempting automatic ingestion: {e}")
+        try:
+            from app.services.ingest_service import ingest_all_documents
+            result = ingest_all_documents()
+            logger.info(f"✅ Automatic ingestion complete! Indexed {result.get('total_chunks', 0)} chunks.")
+        except Exception as ingest_error:
+            logger.error(f"❌ Automatic ingestion failed: {ingest_error}")
     yield
     logger.info("🛑 DutchGuide AI shutting down...")
 
